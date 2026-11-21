@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 620" width="980" height="620" font-family="Segoe UI, Arial, sans-serif">
+  <style>
+    .caja { fill: #ffffff; stroke: #0f766e; stroke-width: 2; }
+    .cab { fill: #0f766e; }
+    .titulo { fill: #ffffff; font-size: 15px; font-weight: 600; }
+    .attr { fill: #1f2937; font-size: 12.5px; }
+    .pk { fill: #b45309; font-weight: 700; font-size: 11px; }
+    .fk { fill: #1d4ed8; font-weight: 700; font-size: 11px; }
+    .tipo { fill: #6b7280; font-size: 11px; }
+    .rel { stroke: #374151; stroke-width: 1.6; fill: none; }
+    .card { fill: #111827; font-size: 14px; font-weight: 700; }
+    .verbo { fill: #374151; font-size: 12px; font-style: italic; }
+  </style>
+  <rect width="980" height="620" fill="#f8fafc"/>
+  <text x="490" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#0f766e">MER · Koa Veterinaria</text>
+
+  <!-- ===== DUENOS ===== -->
+  <g transform="translate(20,50)">
+    <rect class="caja" width="270" height="182" rx="6"/>
+    <path class="cab" d="M0 6 a6 6 0 0 1 6 -6 h258 a6 6 0 0 1 6 6 v24 h-270z"/>
+    <text class="titulo" x="135" y="21" text-anchor="middle">duenos</text>
+    <text x="10" y="50"><tspan class="pk">PK </tspan><tspan class="attr">id_dueno</tspan></text><text class="tipo" x="260" y="50" text-anchor="end">SERIAL</text>
+    <text x="10" y="70"><tspan class="attr">   documento (UQ)</tspan></text><text class="tipo" x="260" y="70" text-anchor="end">VARCHAR(15)</text>
+    <text x="10" y="90"><tspan class="attr">   nombres</tspan></text><text class="tipo" x="260" y="90" text-anchor="end">VARCHAR(60)</text>
+    <text x="10" y="110"><tspan class="attr">   apellidos</tspan></text><text class="tipo" x="260" y="110" text-anchor="end">VARCHAR(60)</text>
+    <text x="10" y="130"><tspan class="attr">   telefono</tspan></text><text class="tipo" x="260" y="130" text-anchor="end">VARCHAR(15)</text>
+    <text x="10" y="150"><tspan class="attr">   correo (UQ)</tspan></text><text class="tipo" x="260" y="150" text-anchor="end">VARCHAR(100)</text>
+    <text x="10" y="170"><tspan class="attr">   direccion</tspan></text><text class="tipo" x="260" y="170" text-anchor="end">VARCHAR(120)</text>
+  </g>
+
+  <!-- ===== MASCOTAS ===== -->
+  <g transform="translate(20,360)">
+    <rect class="caja" width="270" height="202" rx="6"/>
+    <path class="cab" d="M0 6 a6 6 0 0 1 6 -6 h258 a6 6 0 0 1 6 6 v24 h-270z"/>
+    <text class="titulo" x="135" y="21" text-anchor="middle">mascotas</text>
+    <text x="10" y="50"><tspan class="pk">PK </tspan><tspan class="attr">id_mascota</tspan></text><text class="tipo" x="260" y="50" text-anchor="end">SERIAL</text>
+    <text x="10" y="70"><tspan class="attr">   nombre</tspan></text><text class="tipo" x="260" y="70" text-anchor="end">VARCHAR(50)</text>
+    <text x="10" y="90"><tspan class="attr">   especie (CHECK)</tspan></text><text class="tipo" x="260" y="90" text-anchor="end">VARCHAR(20)</text>
+    <text x="10" y="110"><tspan class="attr">   raza</tspan></text><text class="tipo" x="260" y="110" text-anchor="end">VARCHAR(50)</text>
+    <text x="10" y="130"><tspan class="attr">   sexo (CHECK)</tspan></text><text class="tipo" x="260" y="130" text-anchor="end">CHAR(1)</text>
+    <text x="10" y="150"><tspan class="attr">   fecha_nacimiento</tspan></text><text class="tipo" x="260" y="150" text-anchor="end">DATE</text>
+    <text x="10" y="170"><tspan class="attr">   peso_kg</tspan></text><text class="tipo" x="260" y="170" text-anchor="end">NUMERIC(6,2)</text>
+    <text x="10" y="190"><tspan class="fk">FK </tspan><tspan class="attr">id_dueno</tspan></text><text class="tipo" x="260" y="190" text-anchor="end">INTEGER</text>
+  </g>
+
+  <!-- ===== CITAS ===== -->
+  <g transform="translate(355,200)">
+    <rect class="caja" width="270" height="222" rx="6" style="stroke-width:2.5"/>
+    <path class="cab" d="M0 6 a6 6 0 0 1 6 -6 h258 a6 6 0 0 1 6 6 v24 h-270z"/>
+    <text class="titulo" x="135" y="21" text-anchor="middle">citas</text>
+    <text x="10" y="50"><tspan class="pk">PK </tspan><tspan class="attr">id_cita</tspan></text><text class="tipo" x="260" y="50" text-anchor="end">SERIAL</text>
+    <text x="10" y="70"><tspan class="attr">   fecha</tspan></text><text class="tipo" x="260" y="70" text-anchor="end">DATE</text>
+    <text x="10" y="90"><tspan class="attr">   hora</tspan></text><text class="tipo" x="260" y="90" text-anchor="end">TIME</text>
+    <text x="10" y="110"><tspan class="attr">   motivo</tspan></text><text class="tipo" x="260" y="110" text-anchor="end">VARCHAR(200)</text>
+    <text x="10" y="130"><tspan class="attr">   estado (CHECK)</tspan></text><text class="tipo" x="260" y="130" text-anchor="end">VARCHAR(15)</text>
+    <text x="10" y="150"><tspan class="attr">   observaciones</tspan></text><text class="tipo" x="260" y="150" text-anchor="end">VARCHAR(255)</text>
+    <text x="10" y="170"><tspan class="fk">FK </tspan><tspan class="attr">id_mascota</tspan></text><text class="tipo" x="260" y="170" text-anchor="end">INTEGER</text>
+    <text x="10" y="190"><tspan class="fk">FK </tspan><tspan class="attr">id_veterinario</tspan></text><text class="tipo" x="260" y="190" text-anchor="end">INTEGER</text>
+    <text x="10" y="210"><tspan class="fk">FK </tspan><tspan class="attr">id_servicio</tspan></text><text class="tipo" x="260" y="210" text-anchor="end">INTEGER</text>
+  </g>
+  <text x="490" y="440" text-anchor="middle" class="tipo">UQ (id_veterinario, fecha, hora)</text>
+
+  <!-- ===== VETERINARIOS ===== -->
+  <g transform="translate(690,50)">
+    <rect class="caja" width="270" height="202" rx="6"/>
+    <path class="cab" d="M0 6 a6 6 0 0 1 6 -6 h258 a6 6 0 0 1 6 6 v24 h-270z"/>
+    <text class="titulo" x="135" y="21" text-anchor="middle">veterinarios</text>
+    <text x="10" y="50"><tspan class="pk">PK </tspan><tspan class="attr">id_veterinario</tspan></text><text class="tipo" x="260" y="50" text-anchor="end">SERIAL</text>
+    <text x="10" y="70"><tspan class="attr">   documento (UQ)</tspan></text><text class="tipo" x="260" y="70" text-anchor="end">VARCHAR(15)</text>
+    <text x="10" y="90"><tspan class="attr">   nombres</tspan></text><text class="tipo" x="260" y="90" text-anchor="end">VARCHAR(60)</text>
+    <text x="10" y="110"><tspan class="attr">   apellidos</tspan></text><text class="tipo" x="260" y="110" text-anchor="end">VARCHAR(60)</text>
+    <text x="10" y="130"><tspan class="attr">   tarjeta_profesional (UQ)</tspan></text><text class="tipo" x="260" y="130" text-anchor="end">VARCHAR(20)</text>
+    <text x="10" y="150"><tspan class="attr">   especialidad</tspan></text><text class="tipo" x="260" y="150" text-anchor="end">VARCHAR(60)</text>
+    <text x="10" y="170"><tspan class="attr">   telefono</tspan></text><text class="tipo" x="260" y="170" text-anchor="end">VARCHAR(15)</text>
+    <text x="10" y="190"><tspan class="attr">   correo (UQ)</tspan></text><text class="tipo" x="260" y="190" text-anchor="end">VARCHAR(100)</text>
+  </g>
+
+  <!-- ===== SERVICIOS ===== -->
+  <g transform="translate(690,420)">
+    <rect class="caja" width="270" height="142" rx="6"/>
+    <path class="cab" d="M0 6 a6 6 0 0 1 6 -6 h258 a6 6 0 0 1 6 6 v24 h-270z"/>
+    <text class="titulo" x="135" y="21" text-anchor="middle">servicios</text>
+    <text x="10" y="50"><tspan class="pk">PK </tspan><tspan class="attr">id_servicio</tspan></text><text class="tipo" x="260" y="50" text-anchor="end">SERIAL</text>
+    <text x="10" y="70"><tspan class="attr">   nombre (UQ)</tspan></text><text class="tipo" x="260" y="70" text-anchor="end">VARCHAR(80)</text>
+    <text x="10" y="90"><tspan class="attr">   descripcion</tspan></text><text class="tipo" x="260" y="90" text-anchor="end">VARCHAR(255)</text>
+    <text x="10" y="110"><tspan class="attr">   precio (CHECK ≥ 0)</tspan></text><text class="tipo" x="260" y="110" text-anchor="end">NUMERIC(10,2)</text>
+    <text x="10" y="130"><tspan class="attr">   duracion_min (CHECK)</tspan></text><text class="tipo" x="260" y="130" text-anchor="end">INTEGER</text>
+  </g>
+
+  <!-- ===== RELACIONES ===== -->
+  <!-- duenos 1 — N mascotas -->
+  <path class="rel" d="M155 232 V360"/>
+  <path class="rel" d="M145 345 L155 360 L165 345"/>
+  <text class="card" x="163" y="250">1</text>
+  <text class="card" x="167" y="352">N</text>
+  <text class="verbo" x="105" y="300">tiene</text>
+
+  <!-- mascotas 1 — N citas -->
+  <path class="rel" d="M290 460 H322 V380 H355"/>
+  <path class="rel" d="M340 370 L355 380 L340 390"/>
+  <text class="card" x="296" y="453">1</text>
+  <text class="card" x="335" y="368">N</text>
+  <text class="verbo" x="296" y="420">tiene</text>
+
+  <!-- veterinarios 1 — N citas -->
+  <path class="rel" d="M690 150 H658 V390 H625"/>
+  <path class="rel" d="M640 380 L625 390 L640 400"/>
+  <text class="card" x="676" y="143">1</text>
+  <text class="card" x="632" y="377">N</text>
+  <text class="verbo" x="664" y="270">atiende</text>
+
+  <!-- servicios 1 — N citas -->
+  <path class="rel" d="M690 490 H645 V410 H625"/>
+  <path class="rel" d="M640 400 L625 410 L640 420"/>
+  <text class="card" x="676" y="483">1</text>
+  <text class="card" x="630" y="434">N</text>
+  <text class="verbo" x="651" y="455">incluye</text>
+
+  <text x="20" y="605" class="tipo">PK = llave primaria · FK = llave foránea · UQ = UNIQUE · Cardinalidades: 1 a N (un registro del lado 1 se relaciona con muchos del lado N)</text>
+</svg>
