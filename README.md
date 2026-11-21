@@ -79,4 +79,154 @@ La tabla **citas** es la tabla de movimientos del proyecto, con **tres llaves fo
 | Git y GitHub | Control de versiones |
 
 
+## Estructura del proyecto
 
+```
+koa-veterinaria-Neiva/
+├── app.py               # Punto de entrada de Flask
+├── config.py            # Lectura de la configuración (.env) y datos de la clínica
+├── db.py                # Conexión a PostgreSQL y manejo de errores
+├── validaciones.py      # Validación de formularios en el servidor
+├── routes/              # Un Blueprint por tabla
+│   ├── duenos.py
+│   ├── mascotas.py
+│   ├── veterinarios.py
+│   ├── servicios.py
+│   ├── citas.py
+│   └── nosotros.py      # Página Conócenos
+├── templates/           # Plantillas Jinja2 (base.html + una carpeta por tabla)
+├── static/              # CSS, JS e imágenes
+├── database/
+│   ├── schema.sql       # Creación de las 5 tablas
+│   ├── datos.sql        # Carga de datos (10 o más registros por tabla)
+│   ├── crear_bd.py      # Crea la base de datos y ejecuta los dos scripts
+│   └── backup.sql       # Backup generado con pg_dump
+├── docs/                # MER, diccionario, normalización, plan de pruebas y evidencias
+├── tests/               # Pruebas automatizadas con pytest
+├── requirements.txt
+├── .env.example
+└── .gitignore
+```
+
+
+## Instalación y ejecución
+
+### Requisitos previos
+
+- [Python 3.10 o superior](https://www.python.org/downloads/) (al instalarlo, marcar **"Add Python to PATH"**)
+- [PostgreSQL](https://www.postgresql.org/download/) (con pgAdmin 4)
+- [Git](https://git-scm.com/downloads)
+
+### Paso 1. Clonar el repositorio
+
+```powershell
+git clone https://github.com/mariocrack20054-prog/koa-veterinaria-Neiva.git
+cd koa-veterinaria-Neiva
+```
+
+### Paso 2. Crear el entorno virtual e instalar las dependencias
+
+```powershell
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+> Si PowerShell no deja activar el entorno, ejecutar primero:
+> `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`
+
+### Paso 3. Configurar la conexión a la base de datos
+
+Copiar el archivo de ejemplo:
+
+```powershell
+copy .env.example .env
+```
+
+Abrir `.env` con el Bloc de notas y escribir la contraseña de PostgreSQL en `DB_PASSWORD`:
+
+```
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=veterinaria
+DB_USER=postgres
+DB_PASSWORD=la_contraseña_de_postgres
+```
+
+### Paso 4. Crear la base de datos
+
+**Opción A: con el script** (crea la base de datos `veterinaria`, las tablas y los datos):
+
+```powershell
+python database/crear_bd.py
+```
+
+**Opción B: restaurando el backup en pgAdmin 4**
+1. Crear una base de datos vacía llamada `veterinaria`.
+2. Clic derecho sobre ella → **Query Tool** → abrir `database/backup.sql` → ejecutar (▶).
+
+### Paso 5. Ejecutar la aplicación
+
+```powershell
+python app.py
+```
+
+Abrir en el navegador: **http://localhost:5000**
+
+### Paso 6 (opcional). Ejecutar las pruebas automatizadas
+
+```powershell
+pytest -v
+```
+
+---
+
+## Capturas de la aplicación
+
+### Página de inicio
+<!-- 📸 Captura de la página de inicio -->
+![Inicio](docs/evidencias/inicio.png)
+
+### Dueños: listar y crear
+<!-- 📸 Listado de dueños después de crear uno nuevo (mensaje verde de éxito) -->
+![Dueños](docs/evidencias/CP-01.png)
+
+### Mascotas: listado con el nombre del dueño
+<!-- 📸 Listado de mascotas: se ve el NOMBRE del dueño, no el ID -->
+![Mascotas](docs/evidencias/CP-04.png)
+
+### Mascotas: editar con el formulario precargado
+<!-- 📸 Formulario de edición con los datos ya cargados -->
+![Editar mascota](docs/evidencias/CP-06_precargado.png)
+
+### Veterinarios
+<!-- 📸 Listado de veterinarios -->
+![Veterinarios](docs/evidencias/CP-07.png)
+
+### Servicios
+<!-- 📸 Listado de servicios después de editar uno -->
+![Servicios](docs/evidencias/CP-10.png)
+
+### Citas: listado con las tres llaves foráneas
+<!-- 📸 Listado de citas con mascota, dueño, veterinario y servicio por nombre -->
+![Citas](docs/evidencias/CP-13.png)
+
+### Validación de formularios en el servidor
+<!-- 📸 Formulario enviado vacío: mensajes de campos obligatorios -->
+![Validación](docs/evidencias/CP-15.png)
+
+### Valor duplicado
+<!-- 📸 Intento de registrar un correo que ya existe -->
+![Duplicado](docs/evidencias/CP-02.png)
+
+### Confirmación antes de eliminar
+<!-- 📸 Ventana modal que pregunta antes de eliminar -->
+![Confirmación](docs/evidencias/CP-03_confirmacion.png)
+
+### Error controlado al eliminar un registro relacionado
+<!-- 📸 Mensaje "No se puede eliminar..." al borrar un dueño con mascotas -->
+![Eliminar relacionado](docs/evidencias/CP-03.png)
+
+### Página Conócenos y ubicación en Neiva
+<!-- 📸 Galería, mensajes de clientes y mapa con la ubicación -->
+![Conócenos](docs/evidencias/nosotros.png)
