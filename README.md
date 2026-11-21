@@ -230,3 +230,9 @@ pytest -v
 ### Página Conócenos y ubicación en Neiva
 <!-- 📸 Galería, mensajes de clientes y mapa con la ubicación -->
 ![Conócenos](docs/evidencias/nosotros.png)
+
+
+## 📍 Ubicación de la clínica
+
+**Calle 15 # 8-21, Barrio Centro, Neiva, Huila**
+Urgencias 24 horas · (608) 871 4520
