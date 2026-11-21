@@ -43,8 +43,8 @@ La tabla **citas** es la tabla de movimientos del proyecto, con **tres llaves fo
 
 ## Modelo Entidad-Relación
 
-<!-- 📸 Imagen del MER (ya está en docs/MER.png) -->
-![Modelo Entidad-Relación](docs/MER.png)
+<img width="848" height="712" alt="image" src="https://github.com/user-attachments/assets/c486642d-3448-4fbb-8224-b89219f88c24" />
+
 
 **Relaciones:**
 
@@ -184,52 +184,52 @@ pytest -v
 ## Capturas de la aplicación
 
 ### Página de inicio
-<!-- 📸 Captura de la página de inicio -->
-![Inicio](docs/evidencias/inicio.png)
+<img width="1280" height="1432" alt="inicio" src="https://github.com/user-attachments/assets/cf724248-f479-42e5-b889-eaf9c58db26a" />
+
 
 ### Dueños: listar y crear
-<!-- 📸 Listado de dueños después de crear uno nuevo (mensaje verde de éxito) -->
-![Dueños](docs/evidencias/CP-01.png)
+<img width="1280" height="1410" alt="CP-01" src="https://github.com/user-attachments/assets/37af3380-f14d-4ba5-9558-edecf4e9a994" />
+
 
 ### Mascotas: listado con el nombre del dueño
-<!-- 📸 Listado de mascotas: se ve el NOMBRE del dueño, no el ID -->
-![Mascotas](docs/evidencias/CP-04.png)
+<img width="1280" height="1408" alt="CP-04" src="https://github.com/user-attachments/assets/31faf4b3-a990-4d97-8a4e-de61de2892e1" />
+
 
 ### Mascotas: editar con el formulario precargado
-<!-- 📸 Formulario de edición con los datos ya cargados -->
-![Editar mascota](docs/evidencias/CP-06_precargado.png)
+<img width="1280" height="764" alt="CP-06_precargado" src="https://github.com/user-attachments/assets/c4227011-86ae-4456-9dda-390cded5f3f3" />
+
 
 ### Veterinarios
-<!-- 📸 Listado de veterinarios -->
-![Veterinarios](docs/evidencias/CP-07.png)
+<img width="1280" height="1206" alt="CP-07" src="https://github.com/user-attachments/assets/01aaa3c0-2781-4fe2-a7e5-552ba45bfc81" />
+
 
 ### Servicios
-<!-- 📸 Listado de servicios después de editar uno -->
-![Servicios](docs/evidencias/CP-10.png)
+<img width="1280" height="1202" alt="CP-10" src="https://github.com/user-attachments/assets/b4d96e4d-9043-4bf1-9e2f-367a58aca071" />
+
 
 ### Citas: listado con las tres llaves foráneas
-<!-- 📸 Listado de citas con mascota, dueño, veterinario y servicio por nombre -->
-![Citas](docs/evidencias/CP-13.png)
+<img width="1280" height="2013" alt="CP-13" src="https://github.com/user-attachments/assets/23bdf085-78e4-4449-a906-ebabc5648d74" />
+
 
 ### Validación de formularios en el servidor
-<!-- 📸 Formulario enviado vacío: mensajes de campos obligatorios -->
-![Validación](docs/evidencias/CP-15.png)
+<img width="1280" height="1315" alt="CP-15" src="https://github.com/user-attachments/assets/78b7d984-dc83-409b-aa11-5cfd2d855d17" />
+
 
 ### Valor duplicado
-<!-- 📸 Intento de registrar un correo que ya existe -->
-![Duplicado](docs/evidencias/CP-02.png)
+<img width="1280" height="836" alt="CP-02" src="https://github.com/user-attachments/assets/88e50aaa-f8d0-442d-ae6d-b98cb4651b91" />
+
 
 ### Confirmación antes de eliminar
-<!-- 📸 Ventana modal que pregunta antes de eliminar -->
-![Confirmación](docs/evidencias/CP-03_confirmacion.png)
+<img width="1280" height="760" alt="CP-03_confirmacion" src="https://github.com/user-attachments/assets/22afab52-941a-477d-95bf-fef60bc51d91" />
+
 
 ### Error controlado al eliminar un registro relacionado
-<!-- 📸 Mensaje "No se puede eliminar..." al borrar un dueño con mascotas -->
-![Eliminar relacionado](docs/evidencias/CP-03.png)
+<img width="1280" height="1410" alt="CP-03" src="https://github.com/user-attachments/assets/90a599cd-2b96-402e-b145-1d48903615d7" />
+
 
 ### Página Conócenos y ubicación en Neiva
-<!-- 📸 Galería, mensajes de clientes y mapa con la ubicación -->
-![Conócenos](docs/evidencias/nosotros.png)
+<img width="1280" height="3024" alt="nosotros" src="https://github.com/user-attachments/assets/1f7a45c4-1fbe-45ce-a155-238b433ad861" />
+
 
 
 ## 📍 Ubicación de la clínica
