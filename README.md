@@ -120,6 +120,7 @@ koa-veterinaria-Neiva/
 ### Paso 1. Clonar el repositorio
 
 ```powershell
+cd "D:\Datos\Documentos\Proyecto Programacion Web"
 git clone https://github.com/mariocrack20054-prog/koa-veterinaria-Neiva.git
 cd koa-veterinaria-Neiva
 ```
@@ -128,6 +129,7 @@ cd koa-veterinaria-Neiva
 
 ```powershell
 python -m venv .venv
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 .venv\Scripts\activate
 pip install -r requirements.txt
 ```
@@ -141,6 +143,7 @@ Copiar el archivo de ejemplo:
 
 ```powershell
 copy .env.example .env
+code .env
 ```
 
 Abrir `.env` con el Bloc de notas y escribir la contraseña de PostgreSQL en `DB_PASSWORD`:
