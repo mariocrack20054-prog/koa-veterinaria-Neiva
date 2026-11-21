@@ -1,0 +1,80 @@
+{#
+  citas/form.html - Formulario para crear y editar citas
+  -----------------------------------------------------------------------
+  Las tres llaves foráneas (mascota, veterinario y servicio) se escogen
+  con listas desplegables. Las opciones (mascotas, veterinarios y
+  servicios) las envía la función opciones() de routes/citas.py.
+#}
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block contenido %}
+{{ m.banner(titulo, "Complete los datos. Los campos con * son obligatorios.", "citas.jpg") }}
+
+<div class="card">
+  <div class="card-body p-4">
+    <form method="post" novalidate>
+      <div class="row g-3">
+        {# ---------- Las tres llaves foráneas ---------- #}
+        <div class="col-md-4">
+          <label for="id_mascota" class="form-label">Mascota *</label>
+          <select class="form-select" id="id_mascota" name="id_mascota">
+            <option value="">Seleccione la mascota...</option>
+            {% for x in mascotas %}
+            <option value="{{ x.id }}" {{ 'selected' if registro.get('id_mascota')|string == x.id|string }}>{{ x.nombre }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="id_veterinario" class="form-label">Veterinario *</label>
+          <select class="form-select" id="id_veterinario" name="id_veterinario">
+            <option value="">Seleccione el veterinario...</option>
+            {% for x in veterinarios %}
+            <option value="{{ x.id }}" {{ 'selected' if registro.get('id_veterinario')|string == x.id|string }}>{{ x.nombre }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="id_servicio" class="form-label">Servicio *</label>
+          <select class="form-select" id="id_servicio" name="id_servicio">
+            <option value="">Seleccione el servicio...</option>
+            {% for x in servicios %}
+            <option value="{{ x.id }}" {{ 'selected' if registro.get('id_servicio')|string == x.id|string }}>{{ x.nombre }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        {# ---------- Datos de la cita ---------- #}
+        <div class="col-md-4">
+          <label for="fecha" class="form-label">Fecha *</label>
+          <input type="date" class="form-control" id="fecha" name="fecha"
+                 value="{{ registro.get('fecha') or '' }}">
+        </div>
+        <div class="col-md-4">
+          <label for="hora" class="form-label">Hora *</label>
+          <input type="time" class="form-control" id="hora" name="hora"
+                 value="{{ registro.get('hora') or '' }}">
+        </div>
+        <div class="col-md-4">
+          <label for="estado" class="form-label">Estado *</label>
+          <select class="form-select" id="estado" name="estado">
+            {% for e in estados %}
+            <option value="{{ e }}" {{ 'selected' if registro.get('estado') == e }}>{{ e }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-12">
+          <label for="motivo" class="form-label">Motivo de la cita *</label>
+          <input type="text" class="form-control" id="motivo" name="motivo" maxlength="200"
+                 placeholder="Ej: Control anual, vacunación..." value="{{ registro.get('motivo') or '' }}">
+        </div>
+        <div class="col-12">
+          <label for="observaciones" class="form-label">Observaciones</label>
+          <textarea class="form-control" id="observaciones" name="observaciones" rows="2" maxlength="255">{{ registro.get('observaciones') or '' }}</textarea>
+        </div>
+      </div>
+      {{ m.botones_form(url_for('citas.listar')) }}
+    </form>
+  </div>
+</div>
+{% endblock %}

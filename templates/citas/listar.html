@@ -1,0 +1,51 @@
+{#
+  citas/listar.html - Listado de citas
+  -----------------------------------------------------------------------
+  Es la tabla con tres llaves foráneas. En vez de mostrar los id, muestro
+  el nombre de la mascota, del dueño, del veterinario y del servicio, que
+  traigo con varios JOIN en routes/citas.py.
+  Arriba hay botones para filtrar por estado (?estado=Programada, etc.).
+#}
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block titulo %}Citas{% endblock %}
+{% block contenido %}
+{{ m.banner("Citas", "Agenda de atención de la clínica", "citas.jpg", url_for('citas.crear'), "Nueva cita") }}
+
+{# ---------- Filtros por estado ---------- #}
+<div class="mb-3 d-flex flex-wrap gap-2">
+  <a href="{{ url_for('citas.listar') }}" class="btn btn-sm filtro {{ 'activo' if not estado }}">Todas</a>
+  {% for e in estados %}
+  <a href="{{ url_for('citas.listar', estado=e) }}" class="btn btn-sm filtro {{ 'activo' if estado == e }}">{{ e }}s</a>
+  {% endfor %}
+</div>
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr><th>Fecha</th><th>Hora</th><th>Mascota</th><th>Dueño</th><th>Veterinario</th><th>Servicio</th><th>Motivo</th><th>Estado</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for r in registros %}
+        <tr>
+          <td class="fw-bold">{{ r.fecha.strftime('%d/%m/%Y') }}</td>
+          <td>{{ r.hora.strftime('%H:%M') }}</td>
+          <td class="fw-bold">{{ r.mascota }} <span class="text-gris small fw-normal">({{ r.especie }})</span></td>
+          <td>{{ r.dueno }}</td>
+          <td>{{ r.veterinario }}</td>
+          <td>{{ r.servicio }}</td>
+          <td class="small text-gris">{{ r.motivo }}</td>
+          {# La clase del color depende del estado: estado-programada, estado-atendida o estado-cancelada #}
+          <td><span class="estado estado-{{ r.estado|lower }}">{{ r.estado }}</span></td>
+          {{ m.acciones(url_for('citas.editar', id=r.id_cita), url_for('citas.eliminar', id=r.id_cita),
+                        'la cita de ' ~ r.mascota ~ ' del ' ~ r.fecha.strftime('%d/%m/%Y')) }}
+        </tr>
+        {% else %}
+        <tr><td colspan="9" class="text-center text-gris py-4">No hay citas registradas.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

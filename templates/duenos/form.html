@@ -1,0 +1,58 @@
+{#
+  duenos/form.html - Formulario para crear y editar dueños
+  -----------------------------------------------------------------------
+  Uso el mismo formulario para "Nuevo dueño" y "Editar dueño".
+  - Al crear, "registro" llega vacío y los campos salen en blanco.
+  - Al editar, "registro" trae los datos de la base de datos y los campos
+    salen precargados.
+  - Si hay errores de validación, "registro" trae lo que el usuario
+    escribió para que no tenga que llenarlo de nuevo.
+  Le puse "novalidate" al <form> para que la validación la haga el
+  servidor (Python) y no el navegador.
+#}
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block contenido %}
+{{ m.banner(titulo, "Complete los datos. Los campos con * son obligatorios.", "duenos.jpg") }}
+
+<div class="card">
+  <div class="card-body p-4">
+    <form method="post" novalidate>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label for="documento" class="form-label">Documento *</label>
+          <input type="text" class="form-control" id="documento" name="documento" maxlength="15"
+                 placeholder="Ej: 1075234567" value="{{ registro.get('documento') or '' }}">
+        </div>
+        <div class="col-md-4">
+          <label for="nombres" class="form-label">Nombres *</label>
+          <input type="text" class="form-control" id="nombres" name="nombres" maxlength="60"
+                 value="{{ registro.get('nombres') or '' }}">
+        </div>
+        <div class="col-md-4">
+          <label for="apellidos" class="form-label">Apellidos *</label>
+          <input type="text" class="form-control" id="apellidos" name="apellidos" maxlength="60"
+                 value="{{ registro.get('apellidos') or '' }}">
+        </div>
+        <div class="col-md-4">
+          <label for="telefono" class="form-label">Teléfono *</label>
+          <input type="text" class="form-control" id="telefono" name="telefono" maxlength="15"
+                 placeholder="Ej: 3104567890" value="{{ registro.get('telefono') or '' }}">
+        </div>
+        <div class="col-md-8">
+          <label for="correo" class="form-label">Correo electrónico *</label>
+          <input type="email" class="form-control" id="correo" name="correo" maxlength="100"
+                 placeholder="nombre@correo.com" value="{{ registro.get('correo') or '' }}">
+        </div>
+        <div class="col-12">
+          <label for="direccion" class="form-label">Dirección</label>
+          <input type="text" class="form-control" id="direccion" name="direccion" maxlength="120"
+                 value="{{ registro.get('direccion') or '' }}">
+        </div>
+      </div>
+      {{ m.botones_form(url_for('duenos.listar')) }}
+    </form>
+  </div>
+</div>
+{% endblock %}

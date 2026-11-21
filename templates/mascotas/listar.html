@@ -1,0 +1,43 @@
+{#
+  mascotas/listar.html - Listado de mascotas
+  -----------------------------------------------------------------------
+  Aquí no muestro el id_dueno sino el NOMBRE del dueño, que traigo con un
+  JOIN en routes/mascotas.py (campo "dueno").
+#}
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block titulo %}Mascotas{% endblock %}
+{% block contenido %}
+{{ m.banner("Mascotas", "Nuestros pacientes de cuatro patas (y más)", "mascotas.jpg", url_for('mascotas.crear'), "Nueva mascota") }}
+
+{# Diccionario con un emoji para cada especie; lo uso en la columna Nombre #}
+{% set emojis = {'Perro': '🐶', 'Gato': '🐱', 'Ave': '🐦', 'Conejo': '🐰', 'Reptil': '🦎', 'Otro': '🐾'} %}
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr><th>Nombre</th><th>Especie</th><th>Raza</th><th>Sexo</th><th>Nacimiento</th><th class="text-end">Peso</th><th>Dueño</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for r in registros %}
+        <tr>
+          <td class="fw-bold"><span class="avatar">{{ emojis[r.especie] }}</span>{{ r.nombre }}</td>
+          <td>{{ r.especie }}</td>
+          <td>{{ r.raza or '—' }}</td>
+          {# sexos convierte 'M' en 'Macho' y 'H' en 'Hembra' #}
+          <td>{{ sexos[r.sexo] }}</td>
+          <td>{{ r.fecha_nacimiento.strftime('%d/%m/%Y') if r.fecha_nacimiento else '—' }}</td>
+          <td class="text-end">{{ r.peso_kg ~ ' kg' if r.peso_kg is not none else '—' }}</td>
+          <td>{{ r.dueno }}</td>
+          {{ m.acciones(url_for('mascotas.editar', id=r.id_mascota), url_for('mascotas.eliminar', id=r.id_mascota),
+                        'la mascota ' ~ r.nombre) }}
+        </tr>
+        {% else %}
+        <tr><td colspan="8" class="text-center text-gris py-4">No hay mascotas registradas.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

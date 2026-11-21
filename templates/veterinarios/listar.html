@@ -1,0 +1,39 @@
+{#
+  veterinarios/listar.html - Listado de veterinarios
+  -----------------------------------------------------------------------
+  Muestra todos los veterinarios y cuántas citas tiene cada uno
+  (total_citas), dato que calcula routes/veterinarios.py con un COUNT.
+#}
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block titulo %}Veterinarios{% endblock %}
+{% block contenido %}
+{{ m.banner("Veterinarios", "El equipo que cuida de tus mascotas", "veterinarios.jpg", url_for('veterinarios.crear'), "Nuevo veterinario") }}
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr><th>Documento</th><th>Nombre</th><th>Tarjeta prof.</th><th>Especialidad</th><th>Teléfono</th><th>Correo</th><th class="text-center">Citas</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for r in registros %}
+        <tr>
+          <td class="text-gris">{{ r.documento }}</td>
+          <td class="fw-bold">{{ r.nombres }} {{ r.apellidos }}</td>
+          <td>{{ r.tarjeta_profesional }}</td>
+          <td>{{ r.especialidad }}</td>
+          <td>{{ r.telefono }}</td>
+          <td>{{ r.correo }}</td>
+          <td class="text-center"><span class="insignia">{{ r.total_citas }}</span></td>
+          {{ m.acciones(url_for('veterinarios.editar', id=r.id_veterinario), url_for('veterinarios.eliminar', id=r.id_veterinario),
+                        'al veterinario ' ~ r.nombres ~ ' ' ~ r.apellidos) }}
+        </tr>
+        {% else %}
+        <tr><td colspan="8" class="text-center text-gris py-4">No hay veterinarios registrados.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

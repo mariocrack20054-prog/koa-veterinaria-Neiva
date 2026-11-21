@@ -1,0 +1,57 @@
+{#
+  veterinarios/form.html - Formulario para crear y editar veterinarios
+  -----------------------------------------------------------------------
+  Funciona igual que el formulario de dueños: sirve para crear y para
+  editar, y los datos se validan en routes/veterinarios.py.
+#}
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block contenido %}
+{{ m.banner(titulo, "Complete los datos. Los campos con * son obligatorios.", "veterinarios.jpg") }}
+
+<div class="card">
+  <div class="card-body p-4">
+    <form method="post" novalidate>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label for="documento" class="form-label">Documento *</label>
+          <input type="text" class="form-control" id="documento" name="documento" maxlength="15"
+                 value="{{ registro.get('documento') or '' }}">
+        </div>
+        <div class="col-md-4">
+          <label for="nombres" class="form-label">Nombres *</label>
+          <input type="text" class="form-control" id="nombres" name="nombres" maxlength="60"
+                 value="{{ registro.get('nombres') or '' }}">
+        </div>
+        <div class="col-md-4">
+          <label for="apellidos" class="form-label">Apellidos *</label>
+          <input type="text" class="form-control" id="apellidos" name="apellidos" maxlength="60"
+                 value="{{ registro.get('apellidos') or '' }}">
+        </div>
+        <div class="col-md-4">
+          <label for="tarjeta_profesional" class="form-label">Tarjeta profesional *</label>
+          <input type="text" class="form-control" id="tarjeta_profesional" name="tarjeta_profesional" maxlength="20"
+                 placeholder="Ej: TP-10234" value="{{ registro.get('tarjeta_profesional') or '' }}">
+        </div>
+        <div class="col-md-8">
+          <label for="especialidad" class="form-label">Especialidad *</label>
+          <input type="text" class="form-control" id="especialidad" name="especialidad" maxlength="60"
+                 placeholder="Ej: Medicina general" value="{{ registro.get('especialidad') or '' }}">
+        </div>
+        <div class="col-md-4">
+          <label for="telefono" class="form-label">Teléfono *</label>
+          <input type="text" class="form-control" id="telefono" name="telefono" maxlength="15"
+                 value="{{ registro.get('telefono') or '' }}">
+        </div>
+        <div class="col-md-8">
+          <label for="correo" class="form-label">Correo electrónico *</label>
+          <input type="email" class="form-control" id="correo" name="correo" maxlength="100"
+                 value="{{ registro.get('correo') or '' }}">
+        </div>
+      </div>
+      {{ m.botones_form(url_for('veterinarios.listar')) }}
+    </form>
+  </div>
+</div>
+{% endblock %}

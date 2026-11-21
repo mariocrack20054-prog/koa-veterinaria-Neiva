@@ -1,0 +1,38 @@
+{#
+  servicios/listar.html - Listado de servicios
+  -----------------------------------------------------------------------
+  Muestra el catálogo de servicios con su precio, duración y cuántas
+  citas los usan.
+#}
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block titulo %}Servicios{% endblock %}
+{% block contenido %}
+{{ m.banner("Servicios", "Todo lo que ofrecemos para su bienestar", "servicios.jpg", url_for('servicios.crear'), "Nuevo servicio") }}
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr><th>Nombre</th><th>Descripción</th><th class="text-end">Precio</th><th class="text-end">Duración</th><th class="text-center">Citas</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for r in registros %}
+        <tr>
+          <td class="fw-bold">{{ r.nombre }}</td>
+          <td class="text-gris">{{ r.descripcion or '—' }}</td>
+          {# Formateo el precio con puntos de miles: 45000 -> $ 45.000 #}
+          <td class="text-end fw-bold text-koa">$ {{ '{:,.0f}'.format(r.precio).replace(',', '.') }}</td>
+          <td class="text-end">{{ r.duracion_min }} min</td>
+          <td class="text-center"><span class="insignia">{{ r.total_citas }}</span></td>
+          {{ m.acciones(url_for('servicios.editar', id=r.id_servicio), url_for('servicios.eliminar', id=r.id_servicio),
+                        'el servicio ' ~ r.nombre) }}
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="text-center text-gris py-4">No hay servicios registrados.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

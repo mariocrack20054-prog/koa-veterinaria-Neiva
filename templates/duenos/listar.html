@@ -1,0 +1,41 @@
+{#
+  duenos/listar.html - Listado de dueños
+  -----------------------------------------------------------------------
+  Muestra en una tabla todos los dueños registrados. La variable
+  "registros" viene de la función listar() en routes/duenos.py, que además
+  cuenta cuántas mascotas tiene cada dueño (total_mascotas).
+#}
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block titulo %}Dueños{% endblock %}
+{% block contenido %}
+{{ m.banner("Dueños", "Personas responsables de nuestros pacientes", "duenos.jpg", url_for('duenos.crear'), "Nuevo dueño") }}
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr><th>Documento</th><th>Nombre</th><th>Teléfono</th><th>Correo</th><th>Dirección</th><th class="text-center">Mascotas</th><th></th></tr>
+      </thead>
+      <tbody>
+        {# Una fila por cada dueño #}
+        {% for r in registros %}
+        <tr>
+          <td class="text-gris">{{ r.documento }}</td>
+          <td class="fw-bold">{{ r.nombres }} {{ r.apellidos }}</td>
+          <td>{{ r.telefono }}</td>
+          <td>{{ r.correo }}</td>
+          <td>{{ r.direccion or '—' }}</td>
+          <td class="text-center"><span class="insignia">{{ r.total_mascotas }}</span></td>
+          {# Botones Editar y Eliminar (macro en _macros.html) #}
+          {{ m.acciones(url_for('duenos.editar', id=r.id_dueno), url_for('duenos.eliminar', id=r.id_dueno),
+                        'al dueño ' ~ r.nombres ~ ' ' ~ r.apellidos) }}
+        </tr>
+        {% else %}
+        <tr><td colspan="7" class="text-center text-gris py-4">No hay dueños registrados.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

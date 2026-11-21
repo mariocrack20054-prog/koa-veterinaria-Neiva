@@ -1,0 +1,42 @@
+{#
+  servicios/form.html - Formulario para crear y editar servicios
+  -----------------------------------------------------------------------
+  El precio y la duración son números; routes/servicios.py revisa que el
+  precio no sea negativo y que la duración esté entre 5 y 480 minutos.
+#}
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block contenido %}
+{{ m.banner(titulo, "Complete los datos. Los campos con * son obligatorios.", "servicios.jpg") }}
+
+<div class="card">
+  <div class="card-body p-4">
+    <form method="post" novalidate>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label for="nombre" class="form-label">Nombre *</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" maxlength="80"
+                 value="{{ registro.get('nombre') or '' }}">
+        </div>
+        <div class="col-md-3">
+          <label for="precio" class="form-label">Precio ($) *</label>
+          {# Uso "is not none" para que un precio de 0 no se muestre vacío #}
+          <input type="number" class="form-control" id="precio" name="precio" min="0" step="100"
+                 value="{{ registro.get('precio') if registro.get('precio') is not none else '' }}">
+        </div>
+        <div class="col-md-3">
+          <label for="duracion_min" class="form-label">Duración (min) *</label>
+          <input type="number" class="form-control" id="duracion_min" name="duracion_min" min="5" max="480"
+                 value="{{ registro.get('duracion_min') or '' }}">
+        </div>
+        <div class="col-12">
+          <label for="descripcion" class="form-label">Descripción</label>
+          <textarea class="form-control" id="descripcion" name="descripcion" rows="2" maxlength="255">{{ registro.get('descripcion') or '' }}</textarea>
+        </div>
+      </div>
+      {{ m.botones_form(url_for('servicios.listar')) }}
+    </form>
+  </div>
+</div>
+{% endblock %}

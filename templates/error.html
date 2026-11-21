@@ -1,0 +1,16 @@
+{#
+  error.html - Página de error
+  -----------------------------------------------------------------------
+  La uso cuando una página no existe (error 404) o cuando no hay conexión
+  con PostgreSQL. app.py le envía el titulo y el mensaje.
+#}
+{% extends "base.html" %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block contenido %}
+<div class="card text-center py-5 px-3">
+  <div class="display-3">🐾</div>
+  <h1 class="h3 mt-3 text-koa">{{ titulo }}</h1>
+  <p class="text-gris">{{ mensaje }}</p>
+  <div><a href="{{ url_for('inicio') }}" class="btn btn-koa">Volver al inicio</a></div>
+</div>
+{% endblock %}

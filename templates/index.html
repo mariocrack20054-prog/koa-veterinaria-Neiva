@@ -1,0 +1,87 @@
+{#
+  index.html - Página de inicio
+  -----------------------------------------------------------------------
+  Muestra la portada con foto, una tarjeta por cada tabla con la cantidad
+  de registros, y las próximas 5 citas programadas.
+  Los datos (totales y proximas) los envía la función inicio() de app.py.
+#}
+{% extends "base.html" %}
+{% block titulo %}Inicio{% endblock %}
+{% block contenido %}
+
+{# ---------- Portada con foto de fondo (estilo .portada en estilos.css) ---------- #}
+<section class="portada mb-4">
+  <span class="etiqueta">🐾 Clínica veterinaria</span>
+  <h1>Cuidamos a quienes<br>más quieres</h1>
+  <p class="mb-4">En Koa Veterinaria gestionamos dueños, mascotas, veterinarios, servicios y citas en un solo lugar.</p>
+  <a href="{{ url_for('citas.crear') }}" class="btn btn-coral btn-lg me-2"><i class="bi bi-calendar-plus"></i> Agendar cita</a>
+  <a href="{{ url_for('mascotas.listar') }}" class="btn btn-claro btn-lg">Ver mascotas</a>
+</section>
+
+{# ---------- Tarjetas con foto, una por tabla ----------
+   Armo una lista con (blueprint, nombre, foto, total) y la recorro con un
+   for para no escribir 5 veces la misma tarjeta. #}
+<div class="row g-3 mb-4">
+  {% set modulos = [
+      ('duenos', 'Dueños', 'duenos.jpg', totales.duenos),
+      ('mascotas', 'Mascotas', 'mascotas.jpg', totales.mascotas),
+      ('veterinarios', 'Veterinarios', 'veterinarios.jpg', totales.veterinarios),
+      ('servicios', 'Servicios', 'servicios.jpg', totales.servicios),
+      ('citas', 'Citas', 'citas.jpg', totales.citas)] %}
+  {% for bp, nombre, foto, total in modulos %}
+  <div class="col-6 col-md-4 col-lg">
+    <a href="{{ url_for(bp ~ '.listar') }}" class="text-decoration-none">
+      <div class="card tarjeta-modulo h-100">
+        <img src="{{ url_for('static', filename='img/' ~ foto) }}" class="card-img-top" alt="{{ nombre }}">
+        <div class="card-body d-flex justify-content-between align-items-end">
+          <div>
+            <div class="numero">{{ total }}</div>
+            <div class="nombre">{{ nombre }}</div>
+          </div>
+          <i class="bi bi-arrow-right-circle-fill ir"></i>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+
+{# ---------- Franja con la dirección (lleva al mapa de la página Conócenos) ---------- #}
+<div class="franja-ubicacion d-flex flex-wrap align-items-center gap-3 mb-4">
+  <div class="icono-valor flex-shrink-0"><i class="bi bi-geo-alt-fill"></i></div>
+  <div class="flex-grow-1">
+    <div class="fw-bold fs-5">Visítanos en {{ clinica.direccion }}, {{ clinica.ciudad }}</div>
+    <div class="text-gris">Urgencias 24 horas · {{ clinica.telefono }} · WhatsApp {{ clinica.whatsapp }}</div>
+  </div>
+  <a href="{{ url_for('nosotros.ver') }}#ubicacion" class="btn btn-koa"><i class="bi bi-map"></i> Ver mapa</a>
+</div>
+
+{# ---------- Tabla de próximas citas ---------- #}
+<div class="card">
+  <div class="card-body d-flex justify-content-between align-items-center">
+    <h2 class="h5 mb-0 text-koa"><i class="bi bi-calendar-heart"></i> Próximas citas programadas</h2>
+    <a href="{{ url_for('citas.crear') }}" class="btn btn-sm btn-koa"><i class="bi bi-plus-lg"></i> Nueva cita</a>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr><th>Fecha</th><th>Hora</th><th>Mascota</th><th>Veterinario</th><th>Servicio</th></tr>
+      </thead>
+      <tbody>
+        {% for c in proximas %}
+        <tr>
+          <td>{{ c.fecha.strftime('%d/%m/%Y') }}</td>
+          <td>{{ c.hora.strftime('%H:%M') }}</td>
+          <td class="fw-bold">{{ c.mascota }}</td>
+          <td>{{ c.veterinario }}</td>
+          <td>{{ c.servicio }}</td>
+        </tr>
+        {# "else" en un for de Jinja se muestra cuando la lista está vacía #}
+        {% else %}
+        <tr><td colspan="5" class="text-center text-gris py-4">No hay citas programadas.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
